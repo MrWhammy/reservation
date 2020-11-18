@@ -1,0 +1,73 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="reservationApp.candidacy.home.title">Candidacies</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-candidacy" [routerLink]="['/candidacy/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="reservationApp.candidacy.home.createLabel">
+            Create a new Candidacy
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="candidacies?.length === 0">
+        <span jhiTranslate="reservationApp.candidacy.home.notFound">No candidacies found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="candidacies && candidacies.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="reservationApp.candidacy.createdAt">Created At</span></th>
+                    <th scope="col" ><span jhiTranslate="reservationApp.candidacy.type">Type</span></th>
+                    <th scope="col" ><span jhiTranslate="reservationApp.candidacy.reservation">Reservation</span></th>
+                    <th scope="col" ><span jhiTranslate="reservationApp.candidacy.createdBy">Created By</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let candidacy of candidacies ;trackBy: trackId">
+                    <td><a [routerLink]="['/candidacy', candidacy.id, 'view']">{{ candidacy.id }}</a></td>
+                    <td>{{ candidacy.createdAt | date:'medium' }}</td>
+                    <td jhiTranslate="{{ 'reservationApp.CandidacyType.' + candidacy.type }}">{{ candidacy.type }}</td>
+                    <td>
+                        <div *ngIf="candidacy.reservation">
+                            <a [routerLink]="['/reservation', candidacy.reservation?.id, 'view']" >{{ candidacy.reservation?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        {{ candidacy.createdBy?.id }}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/candidacy', candidacy.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/candidacy', candidacy.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(candidacy)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

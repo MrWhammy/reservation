@@ -1,0 +1,41 @@
+entity Club {
+	name String required unique
+}
+
+entity Terrain {
+	name String required
+}
+
+entity Reservation {
+	createdAt Instant required
+    startTime ZonedDateTime required
+}
+
+entity Candidacy {
+	createdAt Instant required
+    type CandidacyType
+}
+
+enum CandidacyType {
+    FULL, IF_NECESSARY
+}
+
+relationship ManyToOne {
+	Candidacy{reservation} to Reservation,
+    Candidacy{createdBy} to User
+    Reservation{createdBy} to User
+    Reservation{terrain} to Terrain
+    Terrain{club} to Club
+}
+
+// Set pagination options
+paginate Reservation with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

@@ -1,0 +1,25 @@
+{
+  "reservationApp": {
+    "reservation": {
+      "home": {
+        "title": "Reservations",
+        "createLabel": "Maak een nieuwe Reservation",
+        "createOrEditLabel": "Maak of wijzig een Reservation",
+        "notFound": "No Reservations found"
+      },
+      "created": "A new Reservation is created with identifier {{ param }}",
+      "updated": "A Reservation is updated with identifier {{ param }}",
+      "deleted": "A Reservation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Bent u zeker dat u Reservation {{ id }} wilt verwijderen?"
+      },
+      "detail": {
+        "title": "Reservation"
+      },
+      "createdAt": "Created At",
+      "startTime": "Start Time",
+      "createdBy": "Created By",
+      "terrain": "Terrain"
+    }
+  }
+}

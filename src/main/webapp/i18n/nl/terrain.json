@@ -1,0 +1,23 @@
+{
+  "reservationApp": {
+    "terrain": {
+      "home": {
+        "title": "Terrains",
+        "createLabel": "Maak een nieuwe Terrain",
+        "createOrEditLabel": "Maak of wijzig een Terrain",
+        "notFound": "No Terrains found"
+      },
+      "created": "A new Terrain is created with identifier {{ param }}",
+      "updated": "A Terrain is updated with identifier {{ param }}",
+      "deleted": "A Terrain is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Bent u zeker dat u Terrain {{ id }} wilt verwijderen?"
+      },
+      "detail": {
+        "title": "Terrain"
+      },
+      "name": "Name",
+      "club": "Club"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="reservationApp.terrain.home.title">Terrains</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-terrain" [routerLink]="['/terrain/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="reservationApp.terrain.home.createLabel">
+            Create a new Terrain
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="terrains?.length === 0">
+        <span jhiTranslate="reservationApp.terrain.home.notFound">No terrains found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="terrains && terrains.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="reservationApp.terrain.name">Name</span></th>
+                    <th scope="col" ><span jhiTranslate="reservationApp.terrain.club">Club</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let terrain of terrains ;trackBy: trackId">
+                    <td><a [routerLink]="['/terrain', terrain.id, 'view']">{{ terrain.id }}</a></td>
+                    <td>{{ terrain.name }}</td>
+                    <td>
+                        <div *ngIf="terrain.club">
+                            <a [routerLink]="['/club', terrain.club?.id, 'view']" >{{ terrain.club?.name }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/terrain', terrain.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/terrain', terrain.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(terrain)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

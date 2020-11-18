@@ -48,6 +48,10 @@ public class CacheConfiguration {
             createCache(cm, eu.yperman.brecht.reservation.domain.User.class.getName());
             createCache(cm, eu.yperman.brecht.reservation.domain.Authority.class.getName());
             createCache(cm, eu.yperman.brecht.reservation.domain.User.class.getName() + ".authorities");
+            createCache(cm, eu.yperman.brecht.reservation.domain.Reservation.class.getName());
+            createCache(cm, eu.yperman.brecht.reservation.domain.Candidacy.class.getName());
+            createCache(cm, eu.yperman.brecht.reservation.domain.Club.class.getName());
+            createCache(cm, eu.yperman.brecht.reservation.domain.Terrain.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

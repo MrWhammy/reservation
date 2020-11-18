@@ -1,0 +1,44 @@
+{
+  "name": "Candidacy",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "CandidacyType",
+      "fieldValues": "FULL,IF_NECESSARY"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "reservation",
+      "otherEntityRelationshipName": "candidacy",
+      "relationshipName": "reservation",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "candidacy",
+      "relationshipName": "createdBy",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201118173808",
+  "entityTableName": "candidacy",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

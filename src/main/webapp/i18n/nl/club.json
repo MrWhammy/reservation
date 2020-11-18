@@ -1,0 +1,22 @@
+{
+  "reservationApp": {
+    "club": {
+      "home": {
+        "title": "Clubs",
+        "createLabel": "Maak een nieuwe Club",
+        "createOrEditLabel": "Maak of wijzig een Club",
+        "notFound": "No Clubs found"
+      },
+      "created": "A new Club is created with identifier {{ param }}",
+      "updated": "A Club is updated with identifier {{ param }}",
+      "deleted": "A Club is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Bent u zeker dat u Club {{ id }} wilt verwijderen?"
+      },
+      "detail": {
+        "title": "Club"
+      },
+      "name": "Name"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "reservationApp": {
+    "CandidacyType": {
+      "null": "",
+      "FULL": "FULL",
+      "IF_NECESSARY": "IF_NECESSARY"
+    }
+  }
+}

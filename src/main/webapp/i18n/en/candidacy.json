@@ -1,0 +1,25 @@
+{
+  "reservationApp": {
+    "candidacy": {
+      "home": {
+        "title": "Candidacies",
+        "createLabel": "Create a new Candidacy",
+        "createOrEditLabel": "Create or edit a Candidacy",
+        "notFound": "No Candidacies found"
+      },
+      "created": "A new Candidacy is created with identifier {{ param }}",
+      "updated": "A Candidacy is updated with identifier {{ param }}",
+      "deleted": "A Candidacy is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Candidacy {{ id }}?"
+      },
+      "detail": {
+        "title": "Candidacy"
+      },
+      "createdAt": "Created At",
+      "type": "Type",
+      "reservation": "Reservation",
+      "createdBy": "Created By"
+    }
+  }
+}

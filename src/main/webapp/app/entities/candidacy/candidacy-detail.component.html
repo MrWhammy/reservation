@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="candidacy">
+            <h2><span jhiTranslate="reservationApp.candidacy.detail.title">Candidacy</span> {{ candidacy.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="reservationApp.candidacy.createdAt">Created At</span></dt>
+                <dd>
+                    <span>{{ candidacy.createdAt }}</span>
+                </dd>
+                <dt><span jhiTranslate="reservationApp.candidacy.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'reservationApp.CandidacyType.' + candidacy.type }}">{{ candidacy.type }}</span>
+                </dd>
+                <dt><span jhiTranslate="reservationApp.candidacy.reservation">Reservation</span></dt>
+                <dd>
+                    <div *ngIf="candidacy.reservation">
+                        <a [routerLink]="['/reservation', candidacy.reservation?.id, 'view']">{{ candidacy.reservation?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="reservationApp.candidacy.createdBy">Created By</span></dt>
+                <dd>
+                    {{ candidacy.createdBy?.id }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/candidacy', candidacy.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
