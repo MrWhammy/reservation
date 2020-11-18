@@ -2,6 +2,7 @@ package eu.yperman.brecht.reservation.web.rest;
 
 import eu.yperman.brecht.reservation.domain.Reservation;
 import eu.yperman.brecht.reservation.service.ReservationService;
+import eu.yperman.brecht.reservation.service.UserService;
 import eu.yperman.brecht.reservation.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +41,11 @@ public class ReservationResource {
 
     private final ReservationService reservationService;
 
-    public ReservationResource(ReservationService reservationService) {
+    private final UserService userService;
+
+    public ReservationResource(ReservationService reservationService, UserService userService) {
         this.reservationService = reservationService;
+        this.userService = userService;
     }
 
     /**
@@ -52,12 +56,12 @@ public class ReservationResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/reservations")
-    public ResponseEntity<Reservation> createReservation(@Valid @RequestBody Reservation reservation) throws URISyntaxException {
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) throws URISyntaxException {
         log.debug("REST request to save Reservation : {}", reservation);
         if (reservation.getId() != null) {
             throw new BadRequestAlertException("A new reservation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Reservation result = reservationService.save(reservation);
+        Reservation result = reservationService.save(reservation.createdAt(Instant.now()).createdBy(userService.getUserWithAuthorities().get()));
         return ResponseEntity.created(new URI("/api/reservations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
