@@ -22,15 +22,13 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="reservationApp.club.name">Name</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let club of clubs ;trackBy: trackId">
-                    <td><a [routerLink]="['/club', club.id, 'view']">{{ club.id }}</a></td>
-                    <td>{{ club.name }}</td>
+                    <td><a [routerLink]="['/club', club.id, 'view']">{{ club.name }}</a></td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

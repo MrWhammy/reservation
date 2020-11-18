@@ -22,9 +22,8 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="createdAt"><span jhiTranslate="reservationApp.reservation.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="startTime"><span jhiTranslate="reservationApp.reservation.startTime">Start Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="startTime"><span jhiTranslate="reservationApp.reservation.startDay">Day</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="startTime"><span jhiTranslate="reservationApp.reservation.startTime">Time</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="createdBy.id"><span jhiTranslate="reservationApp.reservation.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="terrain.id"><span jhiTranslate="reservationApp.reservation.terrain">Terrain</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
@@ -32,15 +31,14 @@
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let reservation of reservations ;trackBy: trackId">
-                    <td><a [routerLink]="['/reservation', reservation.id, 'view']">{{ reservation.id }}</a></td>
-                    <td>{{ reservation.createdAt | date:'medium' }}</td>
-                    <td>{{ reservation.startTime | date:'medium' }}</td>
+                    <td><a [routerLink]="['/reservation', reservation.id, 'view']">{{ reservation.startTime | date:'longDate' }}</a></td>
+                    <td>{{ reservation.startTime | date:'shortTime' }}</td>
                     <td>
-                        {{ reservation.createdBy?.id }}
+                        {{ reservation.createdBy?.firstName }} {{ reservation.createdBy?.lastName }}
                     </td>
                     <td>
                         <div *ngIf="reservation.terrain">
-                            <a [routerLink]="['/terrain', reservation.terrain?.id, 'view']" >{{ reservation.terrain?.id }}</a>
+                            <a [routerLink]="['/terrain', reservation.terrain?.id, 'view']" >{{ reservation.terrain?.name }}</a>
                         </div>
                     </td>
                     <td class="text-right">

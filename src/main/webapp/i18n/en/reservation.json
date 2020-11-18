@@ -17,7 +17,8 @@
         "title": "Reservation"
       },
       "createdAt": "Created At",
-      "startTime": "Start Time",
+      "startDay": "Day",
+      "startTime": "Time",
       "createdBy": "Created By",
       "terrain": "Terrain"
     }

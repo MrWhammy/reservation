@@ -22,7 +22,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="reservationApp.terrain.name">Name</span></th>
                     <th scope="col" ><span jhiTranslate="reservationApp.terrain.club">Club</span></th>
                     <th scope="col"></th>
@@ -30,8 +29,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let terrain of terrains ;trackBy: trackId">
-                    <td><a [routerLink]="['/terrain', terrain.id, 'view']">{{ terrain.id }}</a></td>
-                    <td>{{ terrain.name }}</td>
+                    <td><a [routerLink]="['/terrain', terrain.id, 'view']">{{ terrain.name }}</a></td>
                     <td>
                         <div *ngIf="terrain.club">
                             <a [routerLink]="['/club', terrain.club?.id, 'view']" >{{ terrain.club?.name }}</a>
