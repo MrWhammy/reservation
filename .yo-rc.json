@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "eu.yperman.brecht.reservation",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "reservation",
+    "packageName": "eu.yperman.brecht.reservation",
+    "packageFolder": "eu/yperman/brecht/reservation",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTRiOGQzOTJiODk1OTM2MzBjMmFjODk1Mzc5ZDEwYWYzMzMxOTE2MmQxOTlhYTgzZTg5YjYwYWEyMjY5NTMyZTA0OTQ5OGQyOTdlMzM0NjFiN2RjM2EwMzE1OWQ3NGE2NTNjMzJhOWEzZDAxNjFlODdlMTk4MjNjMTU4YTdhMzQ=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "flatly",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1605720834306,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "nl"],
+    "blueprints": []
+  }
+}
