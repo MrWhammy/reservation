@@ -7,12 +7,13 @@
         Added the constraints for entity Terrain.
     -->
     <changeSet id="20201118174432-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="club_id"
                                  baseTableName="terrain"
                                  constraintName="fk_terrain_club_id"
                                  referencedColumnNames="id"
                                  referencedTableName="club"/>
 
+        <addUniqueConstraint tableName="terrain" columnNames="club_id, name" />
     </changeSet>
 </databaseChangeLog>

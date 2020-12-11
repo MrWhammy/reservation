@@ -7,7 +7,7 @@
         Added the constraints for entity Reservation.
     -->
     <changeSet id="20201118173708-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="created_by_id"
                                  baseTableName="reservation"
                                  constraintName="fk_reservation_created_by_id"
@@ -20,5 +20,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="terrain"/>
 
+        <addUniqueConstraint tableName="reservation" columnNames="start_time" />
     </changeSet>
 </databaseChangeLog>

@@ -23,7 +23,7 @@
                     <label class="form-control-label" jhiTranslate="reservationApp.candidacy.reservation" for="field_reservation">Reservation</label>
                     <select class="form-control" id="field_reservation" name="reservation" formControlName="reservation">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="reservationOption.id === editForm.get('reservation')!.value?.id ? editForm.get('reservation')!.value : reservationOption" *ngFor="let reservationOption of reservations; trackBy: trackById">{{ reservationOption.id }}</option>
+                        <option [ngValue]="reservationOption.id === editForm.get('reservation')!.value?.id ? editForm.get('reservation')!.value : reservationOption" *ngFor="let reservationOption of reservations; trackBy: trackById">{{ reservationOption.startTime | date:'medium' }}</option>
                     </select>
                 </div>
             </div>

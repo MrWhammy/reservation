@@ -19,7 +19,7 @@ public interface CandidacyService {
      * @param candidacy the entity to save.
      * @return the persisted entity.
      */
-    @PreAuthorize("hasRole('"+ AuthoritiesConstants.ADMIN +"') or (#candidacy.id != null and #candidacy.createdBy.login == authentication.principal.username)")
+    @PreAuthorize("hasRole('"+ AuthoritiesConstants.ADMIN +"') or #candidacy.id == null or #candidacy.createdBy.login == authentication.principal.username")
     Candidacy save(Candidacy candidacy);
 
     /**

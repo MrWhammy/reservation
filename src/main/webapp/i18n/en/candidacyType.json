@@ -2,8 +2,8 @@
   "reservationApp": {
     "CandidacyType": {
       "null": "",
-      "FULL": "FULL",
-      "IF_NECESSARY": "IF_NECESSARY"
+      "FULL": "Full",
+      "IF_NECESSARY": "If Necessary"
     }
   }
 }

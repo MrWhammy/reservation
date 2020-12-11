@@ -7,7 +7,7 @@
         Added the constraints for entity Candidacy.
     -->
     <changeSet id="20201118173808-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="reservation_id"
                                  baseTableName="candidacy"
                                  constraintName="fk_candidacy_reservation_id"
@@ -20,5 +20,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <addUniqueConstraint tableName="candidacy" columnNames="reservation_id, created_by_id" />
     </changeSet>
 </databaseChangeLog>

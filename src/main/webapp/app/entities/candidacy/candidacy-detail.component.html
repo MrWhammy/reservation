@@ -10,7 +10,7 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="reservationApp.candidacy.createdAt">Created At</span></dt>
                 <dd>
-                    <span>{{ candidacy.createdAt }}</span>
+                    <span>{{ candidacy.createdAt | date:'medium' }}</span>
                 </dd>
                 <dt><span jhiTranslate="reservationApp.candidacy.type">Type</span></dt>
                 <dd>
@@ -19,12 +19,12 @@
                 <dt><span jhiTranslate="reservationApp.candidacy.reservation">Reservation</span></dt>
                 <dd>
                     <div *ngIf="candidacy.reservation">
-                        <a [routerLink]="['/reservation', candidacy.reservation?.id, 'view']">{{ candidacy.reservation?.id }}</a>
+                        <a [routerLink]="['/reservation', candidacy.reservation?.id, 'view']">{{ candidacy.reservation?.startTime | date:'medium' }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="reservationApp.candidacy.createdBy">Created By</span></dt>
                 <dd>
-                    {{ candidacy.createdBy?.id }}
+                    {{ candidacy.createdBy?.firstName }} {{ candidacy.createdBy?.lastName }}
                 </dd>
             </dl>
 

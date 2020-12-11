@@ -10,25 +10,32 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="reservationApp.reservation.createdAt">Created At</span></dt>
                 <dd>
-                    <span>{{ reservation.createdAt }}</span>
+                    <span>{{ reservation.createdAt | date:'longDate' }} {{ reservation.createdAt | date:'shortTime' }}</span>
                 </dd>
                 <dt><span jhiTranslate="reservationApp.reservation.startTime">Start Time</span></dt>
                 <dd>
-                    <span>{{ reservation.startTime }}</span>
+                    <span>{{ reservation.startTime | date:'longDate' }} {{ reservation.startTime | date:'shortTime' }}</span>
                 </dd>
                 <dt><span jhiTranslate="reservationApp.reservation.createdBy">Created By</span></dt>
                 <dd>
-                    {{ reservation.createdBy?.id }}
+                    {{ reservation.createdBy?.firstName }} {{ reservation.createdBy?.lastName }}
                 </dd>
                 <dt><span jhiTranslate="reservationApp.reservation.terrain">Terrain</span></dt>
                 <dd>
                     <div *ngIf="reservation.terrain">
-                        <a [routerLink]="['/terrain', reservation.terrain?.id, 'view']">{{ reservation.terrain?.id }}</a>
+                        <a [routerLink]="['/terrain', reservation.terrain?.id, 'view']">{{ reservation.terrain?.name }}</a>
                     </div>
                 </dd>
             </dl>
 
             <jhi-candidacy-list [candidacies]="reservation.candidacies" [showReservation]="false"></jhi-candidacy-list>
+
+            <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-candidacy" [routerLink]="['/candidacy/new']">
+                <fa-icon icon="plus"></fa-icon>
+                <span  jhiTranslate="reservationApp.candidacy.home.createLabel">
+            Create a new Candidacy
+            </span>
+            </button>
 
             <button type="submit"
                     (click)="previousState()"
