@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
@@ -81,3 +83,10 @@ export const reservationRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
 ];
+
+const ROUTE = [...reservationRoute];
+@NgModule({
+  imports: [RouterModule.forChild(ROUTE)],
+  exports: [RouterModule],
+})
+export class ReservationRoute {}
