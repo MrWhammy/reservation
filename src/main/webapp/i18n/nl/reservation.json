@@ -20,7 +20,8 @@
       "startDay": "Datum",
       "startTime": "Tijd",
       "createdBy": "Created By",
-      "terrain": "Terrain"
+      "terrain": "Terrein",
+      "players": "Spelers"
     }
   }
 }

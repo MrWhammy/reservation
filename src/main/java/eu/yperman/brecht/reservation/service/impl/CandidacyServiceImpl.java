@@ -1,5 +1,6 @@
 package eu.yperman.brecht.reservation.service.impl;
 
+import eu.yperman.brecht.reservation.repository.ReservationRepository;
 import eu.yperman.brecht.reservation.service.CandidacyService;
 import eu.yperman.brecht.reservation.domain.Candidacy;
 import eu.yperman.brecht.reservation.repository.CandidacyRepository;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,11 @@ public class CandidacyServiceImpl implements CandidacyService {
         return candidacyRepository.findAll();
     }
 
+    @Override
+    public List<Candidacy> findByReservation(Long reservationId) {
+        log.debug("Request to get Candidacies by Reservation: {}", reservationId);
+        return candidacyRepository.findByReservationId(reservationId);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -49,8 +56,8 @@ public class CandidacyServiceImpl implements CandidacyService {
     }
 
     @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Candidacy : {}", id);
-        candidacyRepository.deleteById(id);
+    public void delete(Candidacy candidacy) {
+        log.debug("Request to delete Candidacy : {}", candidacy.getId());
+        candidacyRepository.deleteById(candidacy.getId());
     }
 }

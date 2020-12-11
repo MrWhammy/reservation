@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IReservation } from 'app/shared/model/reservation.model';
+import { CandidacyService } from '../candidacy/candidacy.service';
+import { ICandidacy } from '../../shared/model/candidacy.model';
 
 type EntityResponseType = HttpResponse<IReservation>;
 type EntityArrayResponseType = HttpResponse<IReservation[]>;
@@ -15,7 +17,7 @@ type EntityArrayResponseType = HttpResponse<IReservation[]>;
 export class ReservationService {
   public resourceUrl = SERVER_API_URL + 'api/reservations';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient, protected candidacyService: CandidacyService) {}
 
   create(reservation: IReservation): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(reservation);
@@ -58,8 +60,13 @@ export class ReservationService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.createdAt = res.body.createdAt ? moment(res.body.createdAt) : undefined;
-      res.body.startTime = res.body.startTime ? moment(res.body.startTime) : undefined;
+      const reservation: IReservation = res.body;
+      reservation.createdAt = res.body.createdAt ? moment(reservation.createdAt) : undefined;
+      reservation.startTime = res.body.startTime ? moment(reservation.startTime) : undefined;
+      // testing
+      this.candidacyService
+        .query({ reservation: reservation.id })
+        .subscribe((cRes: HttpResponse<ICandidacy[]>) => (reservation.candidacies = cRes.body || []));
     }
     return res;
   }
@@ -69,6 +76,10 @@ export class ReservationService {
       res.body.forEach((reservation: IReservation) => {
         reservation.createdAt = reservation.createdAt ? moment(reservation.createdAt) : undefined;
         reservation.startTime = reservation.startTime ? moment(reservation.startTime) : undefined;
+        // testing
+        this.candidacyService
+          .query({ reservation: reservation.id })
+          .subscribe((cRes: HttpResponse<ICandidacy[]>) => (reservation.candidacies = cRes.body || []));
       });
     }
     return res;

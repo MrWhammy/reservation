@@ -1,6 +1,8 @@
 package eu.yperman.brecht.reservation.service;
 
 import eu.yperman.brecht.reservation.domain.Club;
+import eu.yperman.brecht.reservation.security.AuthoritiesConstants;
+import org.springframework.security.access.annotation.Secured;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ public interface ClubService {
      * @param club the entity to save.
      * @return the persisted entity.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
     Club save(Club club);
 
     /**
@@ -39,5 +42,6 @@ public interface ClubService {
      *
      * @param id the id of the entity.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
     void delete(Long id);
 }

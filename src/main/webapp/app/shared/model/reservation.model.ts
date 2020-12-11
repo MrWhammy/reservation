@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IUser } from 'app/core/user/user.model';
 import { ITerrain } from 'app/shared/model/terrain.model';
+import { ICandidacy } from './candidacy.model';
 
 export interface IReservation {
   id?: number;
@@ -8,6 +9,7 @@ export interface IReservation {
   startTime?: Moment;
   createdBy?: IUser;
   terrain?: ITerrain;
+  candidacies?: ICandidacy[];
 }
 
 export class Reservation implements IReservation {
@@ -16,6 +18,7 @@ export class Reservation implements IReservation {
     public createdAt?: Moment,
     public startTime?: Moment,
     public createdBy?: IUser,
-    public terrain?: ITerrain
+    public terrain?: ITerrain,
+    public candidacies?: ICandidacy[]
   ) {}
 }

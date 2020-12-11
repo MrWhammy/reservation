@@ -1,6 +1,8 @@
 package eu.yperman.brecht.reservation.web.rest;
 
+import eu.yperman.brecht.reservation.domain.Candidacy;
 import eu.yperman.brecht.reservation.domain.Reservation;
+import eu.yperman.brecht.reservation.service.CandidacyService;
 import eu.yperman.brecht.reservation.service.ReservationService;
 import eu.yperman.brecht.reservation.service.UserService;
 import eu.yperman.brecht.reservation.web.rest.errors.BadRequestAlertException;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +44,6 @@ public class ReservationResource {
     private String applicationName;
 
     private final ReservationService reservationService;
-
     private final UserService userService;
 
     public ReservationResource(ReservationService reservationService, UserService userService) {
@@ -124,7 +127,7 @@ public class ReservationResource {
     @DeleteMapping("/reservations/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         log.debug("REST request to delete Reservation : {}", id);
-        reservationService.delete(id);
+        reservationService.delete(reservationService.findOne(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

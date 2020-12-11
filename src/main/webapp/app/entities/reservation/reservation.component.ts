@@ -85,6 +85,11 @@ export class ReservationComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.reservation = reservation;
   }
 
+  addCandidacy(reservation: IReservation): void {
+    const modalRef = this.modalService.open(ReservationDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.reservation = reservation;
+  }
+
   sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {

@@ -2,6 +2,8 @@ package eu.yperman.brecht.reservation.web.rest;
 
 import eu.yperman.brecht.reservation.domain.Candidacy;
 import eu.yperman.brecht.reservation.service.CandidacyService;
+import eu.yperman.brecht.reservation.service.ReservationService;
+import eu.yperman.brecht.reservation.service.UserService;
 import eu.yperman.brecht.reservation.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -9,12 +11,16 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +40,11 @@ public class CandidacyResource {
 
     private final CandidacyService candidacyService;
 
-    public CandidacyResource(CandidacyService candidacyService) {
+    private final UserService userService;
+
+    public CandidacyResource(CandidacyService candidacyService, UserService userService) {
         this.candidacyService = candidacyService;
+        this.userService = userService;
     }
 
     /**
@@ -46,12 +55,12 @@ public class CandidacyResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/candidacies")
-    public ResponseEntity<Candidacy> createCandidacy(@Valid @RequestBody Candidacy candidacy) throws URISyntaxException {
+    public ResponseEntity<Candidacy> createCandidacy(@RequestBody Candidacy candidacy) throws URISyntaxException {
         log.debug("REST request to save Candidacy : {}", candidacy);
         if (candidacy.getId() != null) {
             throw new BadRequestAlertException("A new candidacy cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Candidacy result = candidacyService.save(candidacy);
+        Candidacy result = candidacyService.save(candidacy.createdAt(Instant.now()).createdBy(userService.getUserWithAuthorities().get()));
         return ResponseEntity.created(new URI("/api/candidacies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -84,9 +93,14 @@ public class CandidacyResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of candidacies in body.
      */
     @GetMapping("/candidacies")
-    public List<Candidacy> getAllCandidacies() {
-        log.debug("REST request to get all Candidacies");
-        return candidacyService.findAll();
+    public List<Candidacy> getAllCandidacies(@RequestParam(required = false) Long reservation) {
+        if (reservation == null) {
+            log.debug("REST request to get all Candidacies");
+            return candidacyService.findAll();
+        } else {
+            log.debug("REST request to get Candidacies for reservation "+reservation);
+            return candidacyService.findByReservation(reservation);
+        }
     }
 
     /**
@@ -111,7 +125,7 @@ public class CandidacyResource {
     @DeleteMapping("/candidacies/{id}")
     public ResponseEntity<Void> deleteCandidacy(@PathVariable Long id) {
         log.debug("REST request to delete Candidacy : {}", id);
-        candidacyService.delete(id);
+        candidacyService.delete(candidacyService.findOne(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

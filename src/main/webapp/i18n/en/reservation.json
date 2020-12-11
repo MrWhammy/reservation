@@ -20,7 +20,8 @@
       "startDay": "Day",
       "startTime": "Time",
       "createdBy": "Created By",
-      "terrain": "Terrain"
+      "terrain": "Terrain",
+      "players": "Players"
     }
   }
 }

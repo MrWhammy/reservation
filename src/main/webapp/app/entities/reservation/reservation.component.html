@@ -26,6 +26,7 @@
                     <th scope="col"  jhiSortBy="startTime"><span jhiTranslate="reservationApp.reservation.startTime">Time</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="createdBy.id"><span jhiTranslate="reservationApp.reservation.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="terrain.id"><span jhiTranslate="reservationApp.reservation.terrain">Terrain</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"><span jhiTranslate="reservationApp.reservation.players">Players</span> </th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -40,6 +41,9 @@
                         <div *ngIf="reservation.terrain">
                             <a [routerLink]="['/terrain', reservation.terrain?.id, 'view']" >{{ reservation.terrain?.name }}</a>
                         </div>
+                    </td>
+                    <td>
+                        {{ reservation.candidacies?.length }}
                     </td>
                     <td class="text-right">
                         <div class="btn-group">

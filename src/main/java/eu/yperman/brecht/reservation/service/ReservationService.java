@@ -2,8 +2,11 @@ package eu.yperman.brecht.reservation.service;
 
 import eu.yperman.brecht.reservation.domain.Reservation;
 
+import eu.yperman.brecht.reservation.security.AuthoritiesConstants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.Optional;
 
@@ -40,7 +43,8 @@ public interface ReservationService {
     /**
      * Delete the "id" reservation.
      *
-     * @param id the id of the entity.
+     * @param reservation the ntity.
      */
-    void delete(Long id);
+    @PreAuthorize("hasRole('"+AuthoritiesConstants.ADMIN+"') or #reservation.createdBy.login == authentication.principal.username")
+    void delete(Reservation reservation);
 }

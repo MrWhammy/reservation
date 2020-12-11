@@ -1,6 +1,9 @@
 package eu.yperman.brecht.reservation.service;
 
 import eu.yperman.brecht.reservation.domain.Candidacy;
+import eu.yperman.brecht.reservation.domain.Reservation;
+import eu.yperman.brecht.reservation.security.AuthoritiesConstants;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +19,7 @@ public interface CandidacyService {
      * @param candidacy the entity to save.
      * @return the persisted entity.
      */
+    @PreAuthorize("hasRole('"+ AuthoritiesConstants.ADMIN +"') or (#candidacy.id != null and #candidacy.createdBy.login == authentication.principal.username)")
     Candidacy save(Candidacy candidacy);
 
     /**
@@ -24,6 +28,8 @@ public interface CandidacyService {
      * @return the list of entities.
      */
     List<Candidacy> findAll();
+
+    List<Candidacy> findByReservation(Long reservationId);
 
 
     /**
@@ -37,7 +43,8 @@ public interface CandidacyService {
     /**
      * Delete the "id" candidacy.
      *
-     * @param id the id of the entity.
+     * @param candidacy the candidacy
      */
-    void delete(Long id);
+    @PreAuthorize("hasRole('"+ AuthoritiesConstants.ADMIN +"') or #candidacy.createdBy.login == authentication.principal.username")
+    void delete(Candidacy candidacy);
 }

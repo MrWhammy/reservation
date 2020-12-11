@@ -1,6 +1,8 @@
 package eu.yperman.brecht.reservation.service;
 
 import eu.yperman.brecht.reservation.domain.Terrain;
+import eu.yperman.brecht.reservation.security.AuthoritiesConstants;
+import org.springframework.security.access.annotation.Secured;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ public interface TerrainService {
      * @param terrain the entity to save.
      * @return the persisted entity.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
     Terrain save(Terrain terrain);
 
     /**
@@ -39,5 +42,6 @@ public interface TerrainService {
      *
      * @param id the id of the entity.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
     void delete(Long id);
 }
